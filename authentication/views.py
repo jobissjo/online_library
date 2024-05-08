@@ -47,7 +47,11 @@ class UserSignInView(APIView):
 
     
 def get_user_info(request):
-    token = request.headers.get('Authorization').split(' ')[1]
+    token = request.headers.get('Authorization')
+
+    if not token:
+        return JsonResponse({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+    token = token.split(' ')[1]
     user, user_id = get_user_from_model(token)
     if user is not None:
         return JsonResponse({'user_id': user_id, 'username': user.username}, status=status.HTTP_200_OK)
