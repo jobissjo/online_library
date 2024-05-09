@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'authentication',
     'library',
     'rest_framework',
-    'rest_framework_simplejwt'
+    'rest_framework_simplejwt',
+    'rest_framework.authtoken'
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -90,9 +91,13 @@ DATABASES = {
 }
 
 # DJANGO REST FRAMEWORK
+
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES':(
-        'rest_framework_simplejwt.authentication.JWTAuthentication'
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
 

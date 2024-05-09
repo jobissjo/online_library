@@ -1,0 +1,14 @@
+-- database: g:\Jobi Development\Django Rest Framework\online_library\db.sqlite3
+
+-- Use the ▷ button in the top right corner to run the entire file.
+
+CREATE TABLE Book (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  author TEXT NOT NULL,
+  status TEXT DEFAULT 'available',
+  image_url TEXT,
+  created_at DATETIME NOT NULL,
+  description TEXT
+);
+

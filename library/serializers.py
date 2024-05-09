@@ -3,6 +3,10 @@ from .models import Book
 
 
 class BookSerializer(serializers.ModelSerializer):
+
+    id = serializers.UUIDField( source='pk', read_only=True)
+    created_at = serializers.DateTimeField( read_only=True)
+    
     class Meta:
         model = Book
-        fields = ['title', 'author', 'status', 'image_urls','description']
+        fields = ['id','title', 'author', 'status', 'genre' ,'image_url','description', 'created_at']
