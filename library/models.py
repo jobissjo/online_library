@@ -17,3 +17,25 @@ class Book(models.Model):
     
     def __str__(self) -> str:
         return self.title
+
+class BorrowRequest(models.Model):
+    PENDING = 'pending'
+    APPROVED = 'approved'
+    REJECTED = 'rejected'
+    REQUEST_STATUS = [
+        (PENDING, 'Pending'),
+        (APPROVED, 'Approved'),
+        (REJECTED, 'Rejected')
+    ]
+
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    borrower = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.CharField(max_length=10, choices=REQUEST_STATUS, default=PENDING)
+
+    def approve_request(self):
+        if self.status == 'pending':
+            self.status = 'approved'
+            self.book.status = 'not available'
+            self.book.borrowed_user = self.borrower
+            self.book.save()
+            self.save()
